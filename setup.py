@@ -11,6 +11,9 @@ setup(
     url='https://github.com/frankwiles/django-app-metrics',
     packages=find_packages(),
     scripts=['bin/pip-up'],
+    install_requires=[
+        'termcolor>=1.1.0',
+    ],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',

@@ -1,5 +1,6 @@
-import os
 import argparse
+
+from pip_up.req_files import ReqFile
 
 
 def build_arg_parser():
@@ -42,3 +43,6 @@ def main_entry():
     print("Save: {}".format(args.save))
     print("Requirements: {}".format(args.requirements_file))
     print("Packages: {}".format(args.packages))
+
+    r = ReqFile()
+    print(r.lines)
