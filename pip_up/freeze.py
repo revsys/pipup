@@ -14,18 +14,9 @@ class Freeze(object):
             cwd=os.getcwd(),
         )
 
-        for i, line in enumerate(output.split('\n')):
+        for line in output.split('\n'):
             line = line.strip()
             self.lines.append(line)
-
-    def write_to_clipboard(self, output):
-        process = subprocess.Popen(
-            'pbcopy', env={
-                'LANG': 'en_US.UTF-8',
-            },
-            stdin=subprocess.PIPE,
-        )
-        process.communicate(output.encode('utf-8'))
 
     def find(self, pattern, clipboard=True):
         """ Find a pattern or package in pip list """
@@ -44,4 +35,3 @@ class Freeze(object):
             self.write_to_clipboard("\n".join(FOUND))
 
         return FOUND
-

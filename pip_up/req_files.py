@@ -58,10 +58,10 @@ class ReqFile(object):
         self.lines = []
 
         with open(path) as f:
-            for line in f:
-                self.parse_line(line)
+            for i, line in enumerate(f):
+                self.parse_line(line, i)
 
-    def parse_line(self, line):
+    def parse_line(self, line, line_number):
         """
         Parse a line of our requirements file for later use
         """
@@ -75,7 +75,10 @@ class ReqFile(object):
         if UNPINNED_RE.match(line):
 
             cprint(
-                "WARNING: Found unpinned package '{}'".format(line.strip()),
+                "WARNING: Found unpinned package '{}' at line {}.".format(
+                    line.strip(),
+                    line_number,
+                ),
                 'red',
             )
 
