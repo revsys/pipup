@@ -66,7 +66,7 @@ class ReqFile(object):
         Parse a line of our requirements file for later use
         """
         # Save line untouched to rewrite it
-        self.lines.append(line)
+        self.lines.append(line.strip())
 
         if '==' in line:
             package, version = line.split('==')
@@ -82,3 +82,43 @@ class ReqFile(object):
                 'red',
             )
 
+    def save(self, lines):
+        """
+        Save these lines to the requirements.txt file
+        """
+        # Don't do anything if there isn't anything to do
+        if not lines:
+            return False
+
+        # Always re-read in case something has changed
+        self.read(self.file_path)
+
+        new_lines = []
+
+        for r in lines:
+            FOUND = False
+
+            for l in self.lines:
+                l = l.strip()
+
+                # Skip lines we can't handle
+                if '==' not in l:
+                    new_lines.append(l)
+                    continue
+
+                pkg, version = l.split('==', 1)
+
+                if pkg in r:
+                    new_lines.append(r)
+                    FOUND = True
+                else:
+                    new_lines.append(l)
+
+            if not FOUND:
+                new_lines.append(r)
+
+        with open(self.file_path, 'w') as f:
+            for l in new_lines:
+                f.write("{}\n".format(l))
+
+        return True

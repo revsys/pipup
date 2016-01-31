@@ -1,12 +1,17 @@
 import os
 import subprocess
+import warnings
+
+warnings.filterwarnings("ignore")
 
 
 class Freeze(object):
     """
     Handle getting information from 'pip freeze'
     """
-    lines = []
+
+    def __init__(self):
+        self.lines = []
 
     def get(self):
         output = subprocess.check_output(
@@ -18,7 +23,7 @@ class Freeze(object):
             line = line.strip()
             self.lines.append(line)
 
-    def find(self, pattern, clipboard=True):
+    def find(self, pattern, clipboard=False):
         """ Find a pattern or package in pip list """
         FOUND = []
 

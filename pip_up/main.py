@@ -1,11 +1,16 @@
-import sys
 import argparse
+import copy
 import subprocess
+import sys
+import os
+import warnings
 
 from termcolor import cprint
 
 from pip_up.req_files import ReqFile
 from pip_up.freeze import Freeze
+
+warnings.filterwarnings("ignore")
 
 
 def build_arg_parser():
@@ -20,7 +25,7 @@ def build_arg_parser():
     parser.add_argument(
         '--save',
         dest='save',
-        action='store_false',
+        action='store_true',
         help="Don't store in requirements.txt",
     )
 
@@ -78,9 +83,10 @@ def handle_find(req, packages, clipboard=False):
     values = []
 
     for p in packages:
-        res = freeze.find(p, clipboard=False)
+        res = freeze.find(p)
         if res:
-            values.append(res)
+            values.extend(res)
+            print("\n".join(res))
         else:
             cprint(" *** Could not find '{}' ***".format(p), 'red')
 
@@ -88,7 +94,49 @@ def handle_find(req, packages, clipboard=False):
 
 
 def handle_install(req, packages, upgrade=False):
-    pass
+    """ Install or upgrade a package """
+    originals = []
+    values = []
+    f = Freeze()
+
+    # Get all of the original matching lines to output only those lines that
+    # changed
+    for p in packages:
+
+        found = f.find(p)
+
+        if not upgrade and found:
+            cprint("ERROR: '{}' seems to exist:".format(p), 'red')
+            print("\n".join(found))
+            cprint('exiting...', 'red')
+            sys.exit(-1)
+
+        originals.extend(found)
+
+    cmd = ['pip', 'install']
+    if upgrade:
+        cmd.append('-U')
+
+    for p in packages:
+        command = copy.copy(cmd)
+        command.append(p)
+
+        output = subprocess.check_output(
+            args=command,
+            cwd=os.getcwd(),
+        )
+
+        f = Freeze()
+        val = f.find(p)
+
+        for v in val:
+            if v not in originals:
+                values.append(v)
+
+    if not values:
+        cprint('No packages changed.', 'red')
+
+    return values
 
 
 def main_entry():
@@ -105,15 +153,28 @@ def main_entry():
         cprint("Looking for '{}'".format(", ".join(args.packages)))
         packages = handle_find(req=req, packages=args.packages)
     else:
+        if args.upgrade:
+            cprint("Installing '{}'".format(", ".join(args.packages)))
+        else:
+            cprint("Installing and/or upgrading '{}'".format(", ".join(args.packages)))
+
         packages = handle_install(
             req=req,
             packages=args.packages,
             upgrade=args.upgrade,
         )
 
+        # Optionally save
+        if args.save:
+            if req.save(packages):
+                cprint('Changes saved to {}'.format(req.file_path), 'green')
+            else:
+                cprint('No changes to save, skipping save.', 'green')
+
     # Optionally copy to the clipboard
     if args.clipboard:
         write_to_clipboard("\n".join(packages))
+
 
     sys.exit(0)
 
