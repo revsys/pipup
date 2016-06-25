@@ -146,6 +146,9 @@ def cli(upgrade, skip, requirements, packages):
         # Save unless we're told otherwise
         if not skip:
             all_packages = installed_packages + upgraded_packages
+            if not req.exists:
+                click.secho("Can't find a requirements.txt! You'll need to either create one or update yours manually.", fg='red')
+
             if req.save(all_packages):
                 click.secho('Changes saved to {}'.format(req.file_path), fg='green')
             else:

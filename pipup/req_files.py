@@ -19,11 +19,15 @@ class ReqFile(object):
     def __init__(self, path=None, file_name='requirements.txt',
                  auto_read=True):
         self.file_name = file_name
+        self.exists = False
 
         if path is None:
             self.file_path = self.find_requirements_file()
         else:
             self.file_path = path
+
+        if self.file_path is not None:
+            self.exists = True
 
         # Store requirements lines
         self.lines = []
@@ -45,6 +49,10 @@ class ReqFile(object):
         """
         Read in requirements file
         """
+        # File doesn't exist, so just move along
+        if not self.exists:
+            return
+
         if not os.path.exists(path):
             raise ReqFileNotFound("{} not found".format(path))
 
@@ -88,6 +96,10 @@ class ReqFile(object):
         """
         # Don't do anything if there isn't anything to do
         if not lines:
+            return False
+
+        # Don't do anything if there isn't a file to update
+        if not self.exists:
             return False
 
         # Always re-read in case something has changed
