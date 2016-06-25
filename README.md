@@ -52,3 +52,11 @@ the `--upgrade` or `-U` option to upgrade Django and update our requirements:
     Upgrading:
     Django==1.9.7
     Changes saved to /Users/frank/work/src/pipup/requirements.txt
+
+## Detailed options
+
+    `--upgrade` or `-U` install or upgrade the requested package(s)
+    `--skip` or `-s` install or upgrade, but don't save the changes into your requirements file
+    `--requirements` or `-r` path to the requirements file you wish to update
+
+**NOTE:** Originally we tried to be *smart* and walk your file system backwards until we found a requirements.txt, but this can easily write the pip changes to a random requirements.txt on your system if you use a certain, fairly common, directory structure for your Python projects.  To avoid this confusion, we're going to be explicit and require that you run pipup from the top of a project or specify the requirements path directly yourself.
