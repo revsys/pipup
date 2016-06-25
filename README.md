@@ -1,5 +1,16 @@
 # pipup - Better requirements.txt management
 
+So why pipup you ask? It's a silly small utility, but it solves some real issues
+I have on a daily basis. The 3 most common things I need to do with pip are:
+
+1. See if a package is installed and if so what version is installed?
+2. Install a package and then save the installed version info into requirements.txt
+3. Upgrade a package and change the entry in requirements.txt
+
+Sadly, pip doesn't help us here so this is why I've created pipup. Running just
+`pipup <package name>` or `pipup -U <package name>` *just does what I want*.  No
+more forgetting to include or update a requirements.txt entry for me!
+
 ## Installation
 
 pipup is installed via pip:
