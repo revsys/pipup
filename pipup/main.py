@@ -130,13 +130,16 @@ def cli(upgrade, skip, requirements, packages):
 
                 upgraded_packages.extend(upgrades)
         else:
-            click.secho("Installing '{}'...".format(pkg))
+            click.secho("Installing '{}'...".format(pkg), fg='green')
 
             installs = handle_install(
                 req=req,
                 packages=[pkg],
                 upgrade=upgrade,
             )
+
+            for i in installs:
+                click.secho(i)
 
             installed_packages.extend(installs)
 
