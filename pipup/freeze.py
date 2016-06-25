@@ -19,7 +19,7 @@ class Freeze(object):
             cwd=os.getcwd(),
         )
 
-        for line in output.split('\n'):
+        for line in output.split(b'\n'):
             line = line.strip()
             self.lines.append(line)
 
@@ -32,11 +32,12 @@ class Freeze(object):
             self.get()
 
         for l in self.lines:
+            l = l.decode('utf-8')
             if pattern in l:
                 FOUND.append(l)
 
         if clipboard:
             # Write contents to clipboard
-            self.write_to_clipboard("\n".join(FOUND))
+            self.write_to_clipboard(b"\n".join(FOUND))
 
         return FOUND

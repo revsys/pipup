@@ -2,24 +2,28 @@ from setuptools import setup, find_packages
 
 
 setup(
-    name='pip-up',
+    name='pipup',
     version="0.1.0",
     description='Install or update pip dependency and save it to requirements.txt',
     long_description='',
     author='Frank Wiles',
     author_email='frank@revsys.com',
-    url='https://github.com/frankwiles/django-app-metrics',
+    url='https://github.com/revsys/pipup',
     packages=find_packages(),
-    scripts=['bin/pip-up'],
+    include_package_data=True,
     install_requires=[
-        'termcolor>=1.1.0',
+        'click==6.6',
     ],
+    entry_points='''
+        [console_scripts]
+        pipup=pipup.main:cli
+    ''',
     classifiers=[
         'Development Status :: 4 - Beta',
-        'Environment :: Web Environment',
+        'Environment :: Console',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
-        'Programming Language :: Python',
+        'Programming Language :: Python :: 3',
     ],
 )

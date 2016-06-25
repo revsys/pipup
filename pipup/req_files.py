@@ -1,7 +1,7 @@
 import os
 import re
 
-from termcolor import cprint
+import click
 
 from .exceptions import (
     ReqFileNotFound, ReqFileNotReadable, ReqFileNotWritable
@@ -74,12 +74,12 @@ class ReqFile(object):
 
         if UNPINNED_RE.match(line):
 
-            cprint(
+            click.secho(
                 "WARNING: Found unpinned package '{}' at line {}.".format(
                     line.strip(),
                     line_number,
                 ),
-                'red',
+                fg='red',
             )
 
     def save(self, lines):
