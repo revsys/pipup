@@ -5,7 +5,7 @@ setup(
     name='pipup',
     version="0.1.0",
     description='Install or update pip dependency and save it to requirements.txt',
-    long_description='',
+    long_description='Show the currently installed version, install it, or upgrade and keep requirements.txt up to date',
     author='Frank Wiles',
     author_email='frank@revsys.com',
     url='https://github.com/revsys/pipup',
