@@ -16,14 +16,14 @@ class ReqFile(object):
     """
     file_path = None
 
-    def __init__(self, file_path=None, file_name='requirements.txt',
+    def __init__(self, path=None, file_name='requirements.txt',
                  auto_read=True):
         self.file_name = file_name
 
-        if file_path is None:
+        if path is None:
             self.file_path = self.find_requirements_file()
         else:
-            self.file_path = file_path
+            self.file_path = path
 
         # Store requirements lines
         self.lines = []
