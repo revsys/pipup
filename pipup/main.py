@@ -113,7 +113,7 @@ def cli(upgrade, skip, requirements, packages):
 
         if found:
             found_packages.extend(found)
-            click.secho("Found:", fg='green')
+            click.secho("Already installed:", fg='green')
             for f in found:
                 click.secho(f)
 
@@ -124,6 +124,9 @@ def cli(upgrade, skip, requirements, packages):
                     packages=[pkg],
                     upgrade=upgrade,
                 )
+
+                for u in upgrades:
+                    click.secho(u)
 
                 upgraded_packages.extend(upgrades)
         else:
