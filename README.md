@@ -33,8 +33,7 @@ like this:
     No changes to save, skipping save.
 
 If Django isn't installed, pipup will install it and save the pinned version of
-the package to requirements.txt.  pipup is smart enough to walk up from your
-current directory until it finds a requirements.txt to add it:
+the package to the requirements.txt in your current directory:
 
     $ pipup Django
     Looking for 'Django'
