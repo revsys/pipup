@@ -3,8 +3,8 @@
 So why pipup you ask? It's a silly small utility, but it solves some real issues
 I have on a daily basis. The 3 most common things I need to do with pip are:
 
-1. See if a package is installed and if so what version is installed?
-2. Install a package and then save the installed version info into requirements.txt
+1. See if a package is installed and, if so, which version is installed
+2. Install a package and then save the installed version info to requirements.txt
 3. Upgrade a package and change the entry in requirements.txt
 
 Sadly, pip doesn't help us here so this is why I've created pipup. Running just
@@ -33,8 +33,7 @@ like this:
     No changes to save, skipping save.
 
 If Django isn't installed, pipup will install it and save the pinned version of
-the package to requirements.txt.  pipup is smart enough to walk up from your
-current directory until it finds a requirements.txt to add it:
+the package to the requirements.txt in your current directory:
 
     $ pipup Django
     Looking for 'Django'
@@ -60,3 +59,14 @@ the `--upgrade` or `-U` option to upgrade Django and update our requirements:
     `--requirements` or `-r` path to the requirements file you wish to update
 
 **NOTE:** Originally we tried to be *smart* and walk your file system backwards until we found a requirements.txt, but this can easily write the pip changes to a random requirements.txt on your system if you use a certain, fairly common, directory structure for your Python projects.  To avoid this confusion, we're going to be explicit and require that you run pipup from the top of a project or specify the requirements path directly yourself.
+
+
+## Need help?
+
+[REVSYS](http://www.revsys.com?utm_medium=github&utm_source=pipup) can help with your Python, Django, and infrastructure projects. If you have a question about this project, please open a GitHub issue. If you love us and want to keep track of our goings-on, here's where you can find us online:
+
+<a href="https://revsys.com?utm_medium=github&utm_source=pipup"><img src="https://pbs.twimg.com/profile_images/915928618840285185/sUdRGIn1_400x400.jpg" height="50" /></a>
+<a href="https://twitter.com/revsys"><img src="https://cdn1.iconfinder.com/data/icons/new_twitter_icon/256/bird_twitter_new_simple.png" height="43" /></a>
+<a href="https://www.facebook.com/revsysllc/"><img src="https://cdn3.iconfinder.com/data/icons/picons-social/57/06-facebook-512.png" height="50" /></a>
+<a href="https://github.com/revsys/"><img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" height="53" /></a>
+<a href="https://gitlab.com/revsys"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/GitLab_Logo.svg/2000px-GitLab_Logo.svg.png" height="44" /></a>
