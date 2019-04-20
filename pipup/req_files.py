@@ -3,21 +3,19 @@ import re
 
 import click
 
-from .exceptions import (
-    ReqFileNotFound, ReqFileNotReadable, ReqFileNotWritable
-)
+from .exceptions import ReqFileNotFound, ReqFileNotReadable, ReqFileNotWritable
 
-UNPINNED_RE = re.compile(r'^[0-9a-zA-Z_\-]+$')
+UNPINNED_RE = re.compile(r"^[0-9a-zA-Z_\-]+$")
 
 
 class ReqFile(object):
     """
     Class to manage a requirements file
     """
+
     file_path = None
 
-    def __init__(self, path=None, file_name='requirements.txt',
-                 auto_read=True):
+    def __init__(self, path=None, file_name="requirements.txt", auto_read=True):
         self.file_name = file_name
         self.exists = False
 
@@ -76,18 +74,17 @@ class ReqFile(object):
         # Save line untouched to rewrite it
         self.lines.append(line.strip())
 
-        if '==' in line:
-            package, version = line.split('==')
+        if "==" in line:
+            package, version = line.split("==")
             self.packages[package] = version
 
         if UNPINNED_RE.match(line):
 
             click.secho(
                 "WARNING: Found unpinned package '{}' at line {}.".format(
-                    line.strip(),
-                    line_number,
+                    line.strip(), line_number
                 ),
-                fg='red',
+                fg="red",
             )
 
     def save(self, lines):
@@ -114,11 +111,11 @@ class ReqFile(object):
                 l = l.strip()
 
                 # Skip lines we can't handle
-                if '==' not in l:
+                if "==" not in l:
                     new_lines.append(l)
                     continue
 
-                pkg, version = l.split('==', 1)
+                pkg, version = l.split("==", 1)
 
                 if pkg in r:
                     new_lines.append(r)
@@ -129,7 +126,7 @@ class ReqFile(object):
             if not FOUND:
                 new_lines.append(r)
 
-        with open(self.file_path, 'w') as f:
+        with open(self.file_path, "w") as f:
             for l in new_lines:
                 f.write("{}\n".format(l))
 
