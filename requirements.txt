@@ -1,2 +1,1 @@
 click=6.6
-Django==1.9.7
