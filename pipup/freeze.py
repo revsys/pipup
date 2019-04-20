@@ -14,16 +14,13 @@ class Freeze(object):
         self.lines = []
 
     def get(self):
-        output = subprocess.check_output(
-            args=['pip', 'freeze'],
-            cwd=os.getcwd(),
-        )
+        output = subprocess.check_output(args=["pip", "freeze"], cwd=os.getcwd())
 
-        for line in output.split(b'\n'):
+        for line in output.split(b"\n"):
             line = line.strip()
             self.lines.append(line)
 
-    def find(self, pattern, clipboard=False):
+    def find(self, pattern):
         """ Find a pattern or package in pip list """
         FOUND = []
 
@@ -32,12 +29,8 @@ class Freeze(object):
             self.get()
 
         for l in self.lines:
-            l = l.decode('utf-8')
-            if pattern in l:
+            l = l.decode("utf-8")
+            if pattern.lower() in l.lower():
                 FOUND.append(l)
-
-        if clipboard:
-            # Write contents to clipboard
-            self.write_to_clipboard(b"\n".join(FOUND))
 
         return FOUND
