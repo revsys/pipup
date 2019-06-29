@@ -6,6 +6,8 @@
 - Removed "copy to clipboard" feature that only works on OSX
 - Upgrade to Click 7
 - Fixed argument case inconsistency between pip and pipup
+- Updated setup and PyPI description
+- Added tests
 
 ## Version 0.2.0 released June 25th, 2016
 

@@ -17,7 +17,7 @@ class Freeze(object):
         output = subprocess.check_output(args=["pip", "freeze"], cwd=os.getcwd())
 
         for line in output.split(b"\n"):
-            line = line.strip()
+            line = line.decode("utf-8").strip()
             self.lines.append(line)
 
     def find(self, pattern):
@@ -29,7 +29,6 @@ class Freeze(object):
             self.get()
 
         for l in self.lines:
-            l = l.decode("utf-8")
             if pattern.lower() in l.lower():
                 FOUND.append(l)
 
