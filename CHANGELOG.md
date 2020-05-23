@@ -1,6 +1,10 @@
 # Changelog
 
-## Version 0.3.0 (unreleased)
+## Version 0.3.1 May 23rd, 2020
+
+- Fixed missing MANIFEST.in file (thanks to Tim Hatch)
+
+## Version 0.3.0 June 29th, 2019
 
 - Removed unnecessary requirements
 - Removed "copy to clipboard" feature that only works on OSX
