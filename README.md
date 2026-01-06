@@ -1,3 +1,6 @@
+
+**NOTE**: Built this a long time ago and now you should just use [uv](https://docs.astral.sh/uv/) it's the best thing since sliced bread. 
+
 # pipup - Better requirements.txt management
 
 So why pipup you ask? It's a silly small utility, but it solves some real issues
